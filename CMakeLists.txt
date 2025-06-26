@@ -15,6 +15,7 @@ message("===============\n${PROJECT_NAME} v${PROJECT_VERSION} project \n========
 
 add_library(${PROJECT_NAME} INTERFACE)
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+option(MICRO_TESS_BUILD_EXAMPLES "Builds micro-tess examples" ON)
 
 # expose public include directory
 #target_include_directories(${PROJECT_NAME} INTERFACE ${PROJECT_SOURCE_DIR}/include)
@@ -30,8 +31,10 @@ target_include_directories(
 # Don't make the install target depend on the all target.
 set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY true)
 
-# add the targets examples project
-add_subdirectory(examples)
+if(MICRO_TESS_BUILD_EXAMPLES)
+        # add the targets examples project
+        add_subdirectory(examples)
+endif()
 
 ### install
 install(TARGETS ${PROJECT_NAME}
